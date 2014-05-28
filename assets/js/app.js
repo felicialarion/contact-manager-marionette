@@ -19,8 +19,6 @@ ContactManager.on("initialize:after", function(){
 
  		if(this.getCurrentRoute() === ""){
  			ContactManager.trigger("contacts:list");
- 			// this.navigate("contacts");
- 			// ContactManager.ContactsApp.List.Controller.listContacts();
  		}
  	}
 });

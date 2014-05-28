@@ -46,6 +46,13 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
   })
 
   List.ContactShow = Marionette.ItemView.extend({
-  	template: "#contact-view"
+  	template: "#contact-view",
+  	events: {
+  		"click a.js-contact-list" : "backToList"
+  	},
+  	backToList: function(e){
+  		e.preventDefault();
+  		ContactManager.trigger("contacts:list");
+  	}
   })
 });

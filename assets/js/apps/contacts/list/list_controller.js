@@ -13,12 +13,14 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
       });
 
       contactsListView.on("itemview:contact:show", function(childView, model){
-      	_thisController.showContact(model);
+      	ContactManager.trigger("contact:show", model.get("id"));
       });
 
       ContactManager.mainRegion.show(contactsListView);
     },
-    showContact: function(model){
+    showContact: function(id){
+    	var contacts = ContactManager.request("contact:entities");
+        var model = contacts.get(id);
     	var contactShow = new List.ContactShow({model: model});
     	ContactManager.mainRegion.show(contactShow);
     }
