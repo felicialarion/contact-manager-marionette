@@ -2,27 +2,34 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
   List.Controller = {
     listContacts: function(){
       var _thisController = this;
-      var contacts = ContactManager.request("contact:entities");
+      var fetchingContacts = ContactManager.request("contact:entities");
+      $.when(fetchingContacts).done(function(contacts){
+          var contactsListView = new List.Contacts({collection: contacts});
+          ContactManager.mainRegion.show(contactsListView);
 
-      var contactsListView = new List.Contacts({
-        collection: contacts
-      });
+          contactsListView.on("itemview:contact:delete", function(childView, model){
+            model.destroy();  
+          });
 
-      contactsListView.on("itemview:contact:delete", function(childView, model){
-      	this.collection.remove(model);	
-      });
-
-      contactsListView.on("itemview:contact:show", function(childView, model){
-      	ContactManager.trigger("contact:show", model.get("id"));
-      });
-
-      ContactManager.mainRegion.show(contactsListView);
+        contactsListView.on("itemview:contact:show", function(childView, model){
+          ContactManager.trigger("contact:show", model.get("id"));
+        });
+      })
+      
     },
     showContact: function(id){
-    	var contacts = ContactManager.request("contact:entities");
-        var model = contacts.get(id);
-    	var contactShow = new List.ContactShow({model: model});
-    	ContactManager.mainRegion.show(contactShow);
+    	var fetchingContact = ContactManager.request("contact:entity",id);
+      $.when(fetchingContact).done(function(contact){
+        if(contact === undefined){
+          var contactShow = new List.NoContact();
+        } 
+        else{
+          var contactShow = new List.ContactShow({model: contact});
+        }
+
+        ContactManager.mainRegion.show(contactShow);
+      })
+     
     }
   }
 });

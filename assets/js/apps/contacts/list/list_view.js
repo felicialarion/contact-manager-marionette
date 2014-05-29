@@ -55,4 +55,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
   		ContactManager.trigger("contacts:list");
   	}
   })
+  List.NoContact = Marionette.ItemView.extend({
+    template: "#no-contact"
+  })
 });
