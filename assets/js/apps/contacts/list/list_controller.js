@@ -1,6 +1,8 @@
 ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbone, Marionette, $, _){
   List.Controller = {
     listContacts: function(){
+      var loadingView = new ContactManager.Common.Views.Loading();
+      ContactManager.mainRegion.show(loadingView);
       var _thisController = this;
       var fetchingContacts = ContactManager.request("contact:entities");
       $.when(fetchingContacts).done(function(contacts){
@@ -18,6 +20,9 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
       
     },
     showContact: function(id){
+      var loadingView = new ContactManager.Common.Views.Loading();
+      ContactManager.mainRegion.show(loadingView);
+
     	var fetchingContact = ContactManager.request("contact:entity",id);
       $.when(fetchingContact).done(function(contact){
         if(contact === undefined){
