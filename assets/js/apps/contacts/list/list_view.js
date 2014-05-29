@@ -48,12 +48,17 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
   List.ContactShow = Marionette.ItemView.extend({
   	template: "#contact-view",
   	events: {
-  		"click a.js-contact-list" : "backToList"
+  		"click a.js-contact-list" : "backToList",
+      "click a.js-edit-contact" : "editContact"
   	},
   	backToList: function(e){
   		e.preventDefault();
   		ContactManager.trigger("contacts:list");
-  	}
+  	},
+    editContact: function(e){
+      e.preventDefault();
+      this.trigger("contact:edit", this.model);
+    }
   })
   List.NoContact = Marionette.ItemView.extend({
     template: "#no-contact"

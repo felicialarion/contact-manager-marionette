@@ -25,14 +25,20 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
     	var fetchingContact = ContactManager.request("contact:entity",id);
       $.when(fetchingContact).done(function(contact){
+        var contactShow;
         if(contact === undefined){
-          var contactShow = new List.NoContact();
+          contactShow = new List.NoContact();
         } 
         else{
-          var contactShow = new List.ContactShow({model: contact});
+          contactShow = new List.ContactShow({model: contact});
+
         }
 
         ContactManager.mainRegion.show(contactShow);
+
+        contactShow.on("contact:edit", function(model){
+          ContactManager.trigger("contact:edit", model.get("id"));
+        })
       })
      
     }

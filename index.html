@@ -53,6 +53,7 @@
     <script type="text/template" id="contact-view">
         <h1><%- firstName %> <%- lastName %></h1>
         <p><a href="#contacts" class="js-contact-list">Display contact list</a></p>
+        <p><a href="#contacts/<%- id %>/edit" class="js-edit-contact btn btn-small"><i class="icon-pencil"></i>Edit this contact</a></p>
         <p><strong>Phone number:</strong> <%- phoneNumber %></p>
     </script>
 
@@ -63,6 +64,34 @@
     <script type="text/template" id="loading-view">
       <p>Loading...</p>
       <div id="spinner"></div>
+    </script>
+
+    <script type="text/template" id="edit-contact">
+      <h1>Edit <%- firstName %> <%- lastName %>
+      <form>
+        <div class="control-group">
+          <label for="contact-firstName" class="control-label">
+            First name: 
+          </label>
+          <input id="contact-firstName" name="firstName" value="<%- firstName %>" />
+        </div>
+
+        <div class="control-group">
+          <label for="contact-lastName" class="control-label">
+            Last name: 
+          </label>
+          <input id="contact-lastName" name="lastName" value="<%- lastName %>" />
+        </div>
+
+        <div class="control-group">
+          <label for="contact-phoneNumber" class="control-label">
+            Phone Number: 
+          </label>
+          <input id="contact-phoneNumber" name="phoneNumber" value="<%- phoneNumber %>" />
+        </div>
+
+        <button class="btn js-submit">Save</button>
+      </form> 
     </script>
 
     <script src="./assets/js/vendor/jquery.js"></script>
@@ -82,6 +111,8 @@
     <script type="text/javascript" src="./assets/js/apps/contacts/contacts_app.js"></script>
     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
+    <script src="./assets/js/apps/contacts/edit/edit_view.js"></script>
+    <script src="./assets/js/apps/contacts/edit/edit_controller.js"></script>
 
     <script type="text/javascript">
       ContactManager.start();
