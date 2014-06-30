@@ -5,7 +5,17 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
     events:  {
     	"click" :"highlightName",
     	"click button.js-delete": "deleteItem",
+      "click a.js-edit":"editClicked",
     	"click a.js-show": "showItem"
+    },
+    flash: function(cssClass){
+      var $view = this.$el;
+      $view.hide().toggleClass(cssClass).fadeIn(800, function(){
+        setTimeout(function(){
+        $view.toggleClass(cssClass)
+        }, 500);
+     });
+
     },
     highlightName: function(){
 		this.$el.toggleClass('warning');
@@ -27,6 +37,11 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
     	e.preventDefault();
     	e.stopPropagation();
     	this.trigger("contact:show", this.model);
+    },
+    editClicked:function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      this.trigger("contact:edit", this.model);
     }
   });
 

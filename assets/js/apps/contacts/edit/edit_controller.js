@@ -11,7 +11,7 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 		          contactEdit = new ContactManager.ContactsApp.List.NoContact();
 		        } 
 		        else{
-		          contactEdit = new Edit.Contact({model: contact});
+		          contactEdit = new ContactManager.ContactsApp.Edit.Contact({model: contact, asModal: false});
 		        }
 
 		        contactEdit.on("form:submit",function(data){
